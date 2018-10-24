@@ -20,25 +20,11 @@ public class Coin : MonoBehaviour
     {
         if (other.tag == "collider")
         {
-           instantiatedObj = (GameObject) Instantiate(prefab, new Vector2(other.transform.position.x, other.transform.position.y+2), Quaternion.identity);
-            Destroy(prefab,time);
+            instantiatedObj = (GameObject)Instantiate(prefab, new Vector2(other.transform.position.x, other.transform.position.y + 2), Quaternion.identity);
+            Destroy(prefab, time);
         }
     }
     // Update is called once per frame
     void Update()
-    {
-    }
-  
-
-
-
-    /* bool delay(float time)
-     {
-         float delay = 1;
-         while (delay < time)
-             delay += Time.deltaTime;
-         Debug.Log(delay.ToString());
-         return true;
-     } */
+    {}
 }
-

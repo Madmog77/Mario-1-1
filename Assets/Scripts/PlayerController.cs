@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public UnityEvent OnLandEvent;
     public PlayerController controller;
     public Animator animator;
-    private Rigidbody2D rb2d;
     public bool facingRight = true;
     public bool death = false;
     public float speed = 10;
@@ -17,24 +16,14 @@ public class PlayerController : MonoBehaviour
     public static bool IsInputEnabled = true;
     public bool mushroom = false;
     public GameObject otherGameobject;
-
     public GameObject playercam;
+
+    private Rigidbody2D rb2d;
     private camera cam;
     private collider Collider;
-    //private GameObject sound;
 
-    //ground check
-    public bool isOnGround;
-    public Transform groundcheck;
-    public float checkRadius;
-    public LayerMask allGround;
 
-    private float jumpTimeCounter;
-    public float jumpTime;
-    public bool isJumping = false;
-    bool jump = false;
-
-    //audio stuff
+    //audio stuff section
     private AudioClip clip;
     private AudioSource source;
     public AudioClip jumpClip;
@@ -46,6 +35,17 @@ public class PlayerController : MonoBehaviour
     private float volHighRange = 1.0f;
 
 
+    //ground check section 
+    public bool isOnGround;
+    public Transform groundcheck;
+    public float checkRadius;
+    public LayerMask allGround;
+    private float jumpTimeCounter;
+    public float jumpTime;
+    public bool isJumping = false;
+    bool jump = false;
+
+
 
     // Use this for initialization
     void Start()
@@ -53,17 +53,21 @@ public class PlayerController : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         Collider = otherGameobject.GetComponent<collider>();
         cam = playercam.GetComponent<camera>();
-        //sound = otherGameobject.GetComponent<GameObject>();
     }
+
+
 
     void Awake()
     {
         source = GetComponent<AudioSource>();
     }
 
+
+
     private void Update()
     {
     }
+
 
 
     // Update is called once per frame
@@ -87,16 +91,9 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey("escape"))
             Application.Quit();
 
-        /*if (Input.GetButtonDown("Jump"))
-        {
-            jump = true;
-            
-            
-        }*/
+      
 
-
-
-        //stuff I added to flip my character
+        //stuff added to flip the character
         if (facingRight == false && moveHorizontal > 0)
         {
             Flip();
@@ -109,10 +106,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void OnLanding()
-    {
-        animator.SetBool("IsJumping", false);
-    }
 
     void Flip()
     {
@@ -121,6 +114,15 @@ public class PlayerController : MonoBehaviour
         Scaler.x = Scaler.x * -1;
         transform.localScale = Scaler;
     }
+
+
+    public void OnLanding()
+    {
+        animator.SetBool("IsJumping", false);
+    }
+
+
+
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -131,7 +133,6 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                // rb2d.AddForce(new Vector2(0, jumpforce), ForceMode2D.Impulse);
                 rb2d.velocity = Vector2.up * jumpforce;
                 animator.SetBool("IsJumping", true);
 
@@ -141,9 +142,12 @@ public class PlayerController : MonoBehaviour
 
 
             }
-            //animator.SetBool("IsJumping", false);
         }
     }
+
+
+
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -155,11 +159,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-        //if (other.gameObject.CompareTag("CoinBox"))
-        // {
-        //      other.gameObject.SetActive(false);
-        //  }
-
         if (other.gameObject.CompareTag("deathcollider"))
         {
             death = true;
@@ -167,21 +166,10 @@ public class PlayerController : MonoBehaviour
             speed = 0;
             source.PlayOneShot(deathsound, 1);
             mainmusic.Stop();
-            //cam.offset = new Vector3(0, 0, 0);
             Destroy(otherGameobject);
             IsInputEnabled = false;
         }
 
-        // if (other.gameObject.CompareTag("killcollider"))
-        // {
-        //     animator.SetBool("GoombaDeath", true);
-
-        // }
-
-        if (other.gameObject.CompareTag("MushroomBox"))
-        {
-            mushroom = true;
-        }
 
         if (other.gameObject.CompareTag("killcollider"))
         {
@@ -190,5 +178,10 @@ public class PlayerController : MonoBehaviour
         }
 
 
+
+        if (other.gameObject.CompareTag("MushroomBox"))
+        {
+            mushroom = true;
+        }
     }
 }

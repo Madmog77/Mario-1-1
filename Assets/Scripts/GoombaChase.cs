@@ -9,11 +9,17 @@ public class GoombaChase : MonoBehaviour {
     private Transform target;
     public bool death = false;
 
+
+
+
     // Use this for initialization
     void Start() {
 
         target = GameObject.FindGameObjectWithTag("Point1").GetComponent<Transform>();
     }
+
+
+
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -25,15 +31,6 @@ public class GoombaChase : MonoBehaviour {
         {
             target = GameObject.FindGameObjectWithTag("Point1").GetComponent<Transform>();
         }
-
-        /*if (other.gameObject.CompareTag("killcollider"))
-        {
-
-            animator.SetBool("GoombaDeath", true);
-
-        } */
-
-
     }
 
         

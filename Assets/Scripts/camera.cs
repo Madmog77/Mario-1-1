@@ -17,16 +17,7 @@ public class camera : MonoBehaviour {
 
     }
 
-    // Update is called once per frame
 
-    /*private void Update()
-    {
-        if (cam.death == true)
-        {
-            offset = new Vector3(0, 0, 0);
-        }
-
-    }*/
 
     // Update is called once per frame
     void LateUpdate()
